@@ -1,0 +1,14 @@
+# 统一行尾：仓库里一律用 LF，检出时不自动转换，
+# 避免在 Windows 上出现「整个文件都被改动」的假 diff。
+* text=auto eol=lf
+
+# Windows 专用脚本保持 CRLF（有些老工具对 LF 的 .bat/.cmd 不友好）
+*.bat text eol=crlf
+*.cmd text eol=crlf
+*.ps1 text eol=crlf
+
+# 二进制资源不要做任何转换
+*.png binary
+*.ico binary
+*.jpg binary
+*.gif binary
