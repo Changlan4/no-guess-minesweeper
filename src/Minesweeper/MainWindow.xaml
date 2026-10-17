@@ -1,0 +1,113 @@
+<Window x:Class="Minesweeper.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="clr-namespace:Minesweeper.ViewModels"
+        xmlns:ctrl="clr-namespace:Minesweeper.Controls"
+        Title="{Binding WindowTitle}"
+        MinWidth="660" MinHeight="480"
+        Width="900" Height="580"
+        Background="{DynamicResource WindowBackground}"
+        WindowStartupLocation="CenterScreen">
+
+    <Window.DataContext>
+        <vm:MainViewModel/>
+    </Window.DataContext>
+
+    <Grid Margin="8">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="Auto"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="Auto"/>
+        </Grid.RowDefinitions>
+
+        <Menu Grid.Row="0" Background="{DynamicResource StatusBarBg}" FontFamily="Segoe UI" FontSize="13">
+            <MenuItem Header="_游戏">
+                <MenuItem Header="新游戏" InputGestureText="F2" Command="{Binding NewGameCommand}"/>
+                <MenuItem Header="提示" InputGestureText="H" Click="OnHintClick"/>
+                <MenuItem Header="排行榜与统计…" Click="OnStatsClick"/>
+                <MenuItem Header="退出" Click="OnExitClick"/>
+            </MenuItem>
+            <MenuItem Header="难_度">
+                <MenuItem Header="初级    9 × 9  · 10 雷" IsCheckable="True" Click="OnDifficultyClick" Tag="初级"/>
+                <MenuItem Header="中级  16 × 16 · 40 雷" IsCheckable="True" Click="OnDifficultyClick" Tag="中级"/>
+                <MenuItem Header="高级  16 × 30 · 99 雷" IsCheckable="True" Click="OnDifficultyClick" Tag="高级"/>
+            </MenuItem>
+            <MenuItem Header="主_题">
+                <MenuItem Header="午夜薄荷" IsCheckable="True" Click="OnThemeClick" Tag="MintNoir"/>
+                <MenuItem Header="午夜樱粉" IsCheckable="True" Click="OnThemeClick" Tag="RoseNoir"/>
+                <MenuItem Header="午夜紫罗兰" IsCheckable="True" Click="OnThemeClick" Tag="VioletNoir"/>
+                <MenuItem Header="午夜海蓝" IsCheckable="True" Click="OnThemeClick" Tag="OceanNoir"/>
+            </MenuItem>
+            <MenuItem Header="帮_助">
+                <MenuItem Header="操作说明" Click="OnAboutClick"/>
+            </MenuItem>
+        </Menu>
+
+        <Border Grid.Row="1" Background="{DynamicResource StatusBarBg}"
+                CornerRadius="4" Padding="10,5" Margin="0,4">
+            <Grid>
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="Auto"/>
+                    <ColumnDefinition Width="*"/>
+                    <ColumnDefinition Width="Auto"/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Grid.Column="0" Orientation="Horizontal" VerticalAlignment="Center">
+                    <TextBlock Text="雷" FontSize="15" Foreground="{DynamicResource FlagColor}" VerticalAlignment="Center" Margin="0,0,4,0"/>
+                    <TextBlock Text="{Binding RemainingMinesText}" FontSize="20" FontWeight="Bold" VerticalAlignment="Center" MinWidth="30">
+                        <TextBlock.Style>
+                            <Style TargetType="TextBlock">
+                                <Setter Property="Foreground" Value="{DynamicResource FlagColor}"/>
+                                <Style.Triggers>
+                                    <!-- 旗插多了：换成警示色，数字本身也是负的 -->
+                                    <DataTrigger Binding="{Binding HasExcessFlags}" Value="True">
+                                        <Setter Property="Foreground" Value="{DynamicResource WrongFlagColor}"/>
+                                    </DataTrigger>
+                                </Style.Triggers>
+                            </Style>
+                        </TextBlock.Style>
+                    </TextBlock>
+                </StackPanel>
+                <Button Grid.Column="1" Width="44" Height="34" FontSize="19" Content="{Binding FaceIcon}"
+                        Command="{Binding FaceClickCommand}" Padding="0" Cursor="Hand"
+                        ToolTip="重新开始 (F2)" Focusable="False"
+                        Foreground="{DynamicResource WindowBackground}">
+                    <Button.Template>
+                        <ControlTemplate TargetType="Button">
+                            <!-- 稍亮的药丸底：emoji 直接在深色状态栏上几乎看不见，但也别用高饱和亮色抢视线 -->
+                            <Border Background="{DynamicResource CellHighlight}" CornerRadius="9"
+                                    BorderBrush="{DynamicResource CellBorder}" BorderThickness="1">
+                                <ContentPresenter HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            </Border>
+                        </ControlTemplate>
+                    </Button.Template>
+                </Button>
+                <TextBlock Grid.Column="2" Text="{Binding ElapsedTime}" FontSize="20" FontWeight="Bold" MinWidth="60"
+                           TextAlignment="Right" Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+
+        <!--
+            外层 Grid 撑满可用空间，专门用来测量；
+            内层 Border 只包裹棋盘本身（居中），这样窗口放大时不会再出现四周一大片底色。
+            注意别拿内层容器去测量格子尺寸——它的尺寸反过来由棋盘决定，会形成循环依赖。
+        -->
+        <Grid Grid.Row="2" x:Name="BoardHost" Margin="0,4" SizeChanged="OnBoardSizeChanged">
+            <Border Background="{DynamicResource BoardBackground}" CornerRadius="6" Padding="4"
+                    HorizontalAlignment="Center" VerticalAlignment="Center">
+                <ctrl:BoardCanvas x:Name="Board"
+                    Cells="{Binding Cells}" CellSize="{Binding CellSize}"
+                    Cols="{Binding CurrentDifficulty.Cols}" Rows="{Binding CurrentDifficulty.Rows}"/>
+            </Border>
+        </Grid>
+
+        <Border Grid.Row="3" Background="{DynamicResource StatusBarBg}" CornerRadius="4" Padding="8,3" Margin="0,2,0,0">
+            <Grid>
+                <TextBlock Text="{Binding BestRecordText}" FontSize="12" HorizontalAlignment="Left"
+                           Foreground="{DynamicResource TextPrimary}" VerticalAlignment="Center"/>
+                <TextBlock Text="{Binding StatusMessage}" FontSize="12" HorizontalAlignment="Right"
+                           Foreground="{DynamicResource FlagColor}" VerticalAlignment="Center"/>
+            </Grid>
+        </Border>
+    </Grid>
+</Window>

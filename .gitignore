@@ -1,0 +1,29 @@
+## 构建产物
+bin/
+obj/
+publish/
+publish_*/
+publish_staging/
+
+## 本机版本备份（不参与版本控制）
+_backup_*/
+
+## 编辑器 / IDE
+.vs/
+.vscode/
+.idea/
+.reasonix/
+*.user
+*.suo
+*.DotSettings.user
+
+## 测试与覆盖率
+TestResults/
+*.coverage
+*.trx
+
+## 杂项
+*.log
+*.tmp
+Thumbs.db
+desktop.ini

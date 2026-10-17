@@ -1,0 +1,24 @@
+<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <Nullable>enable</Nullable>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <UseWPF>true</UseWPF>
+    <!-- 图标由 tools/make_icon.py 生成，改配色后可重新跑一遍 -->
+    <ApplicationIcon>app.ico</ApplicationIcon>
+    <AssemblyTitle>无猜扫雷</AssemblyTitle>
+    <Product>无猜扫雷</Product>
+    <Version>1.6.0</Version>
+  </PropertyGroup>
+
+  <!--
+    这里刻意不再声明 Themes/*.xaml 为 Content。
+    一旦声明成 Content，WPF SDK 的默认 Page 项就会被挡掉，主题 XAML 只会被复制到输出目录、
+    不会编译成 BAML 嵌入程序集 —— 于是 pack://application:,,,/ 形式的引用全部找不到资源，
+    程序也就只能靠「exe 旁边必须有 Themes 文件夹」才能跑。
+    交给默认的 Page 处理，主题就能真正嵌进程序集。
+  -->
+
+</Project>

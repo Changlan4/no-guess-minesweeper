@@ -1,0 +1,34 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--
+        午夜薄荷（默认）：深墨绿底 + 低亮度格子，适合长时间使用。
+        未翻开格只比底色亮一点点，已翻开格更暗，靠浮雕边框区分而不是靠明暗反差。
+    -->
+    <SolidColorBrush x:Key="WindowBackground" Color="#1B211F"/>
+    <SolidColorBrush x:Key="BoardBackground" Color="#141917"/>
+    <SolidColorBrush x:Key="CellCoveredFace" Color="#2F3D38"/>
+    <SolidColorBrush x:Key="CellHighlight" Color="#42544D"/>
+    <SolidColorBrush x:Key="CellShadow" Color="#0F1412"/>
+    <SolidColorBrush x:Key="CellRevealed" Color="#242C29"/>
+    <SolidColorBrush x:Key="CellBorder" Color="#3A4641"/>
+    <SolidColorBrush x:Key="StatusBarBg" Color="#222926"/>
+    <SolidColorBrush x:Key="TextPrimary" Color="#D5E0DB"/>
+    <SolidColorBrush x:Key="FlagColor" Color="#6FD3AC"/>
+    <SolidColorBrush x:Key="AccentColor" Color="#5FC9A4"/>
+    <SolidColorBrush x:Key="FlashColor" Color="#E8C06A"/>
+
+    <SolidColorBrush x:Key="Num1" Color="#6FA8E0"/>
+    <SolidColorBrush x:Key="Num2" Color="#6FD08F"/>
+    <SolidColorBrush x:Key="Num3" Color="#F08A8A"/>
+    <SolidColorBrush x:Key="Num4" Color="#9E8FE0"/>
+    <SolidColorBrush x:Key="Num5" Color="#E0928A"/>
+    <SolidColorBrush x:Key="Num6" Color="#5FC8C8"/>
+    <SolidColorBrush x:Key="Num7" Color="#CFC8D8"/>
+    <SolidColorBrush x:Key="Num8" Color="#948DA0"/>
+
+    <!-- 失败时的提示色：插错的旗 / 踩中的那颗雷 -->
+    <SolidColorBrush x:Key="WrongFlagColor" Color="#E07070"/>
+    <SolidColorBrush x:Key="ExplodedCell" Color="#D4573A"/>
+
+</ResourceDictionary>

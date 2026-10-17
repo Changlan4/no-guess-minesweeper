@@ -1,0 +1,41 @@
+name: build
+
+on:
+  push:
+    branches: [ main, master ]
+  pull_request:
+  workflow_dispatch:
+
+jobs:
+  build-and-test:
+    runs-on: windows-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: 安装 .NET 9 SDK
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '9.0.x'
+
+      - name: 还原
+        run: dotnet restore Minesweeper.sln
+
+      - name: 构建
+        run: dotnet build Minesweeper.sln -c Release --no-restore
+
+      - name: 测试
+        run: dotnet test tests/Minesweeper.Tests/Minesweeper.Tests.csproj -c Release --no-build
+
+      - name: 发布产物
+        run: dotnet publish src/Minesweeper/Minesweeper.csproj -c Release -o publish
+
+      - name: 上传产物
+        uses: actions/upload-artifact@v4
+        with:
+          name: Minesweeper
+          path: |
+            publish/Minesweeper.exe
+            publish/Minesweeper.dll
+            publish/Minesweeper.deps.json
+            publish/Minesweeper.runtimeconfig.json

@@ -1,0 +1,31 @@
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!-- 午夜樱粉：深紫棕底 + 暗樱粉格 -->
+    <SolidColorBrush x:Key="WindowBackground" Color="#211A1E"/>
+    <SolidColorBrush x:Key="BoardBackground" Color="#181315"/>
+    <SolidColorBrush x:Key="CellCoveredFace" Color="#3A2B32"/>
+    <SolidColorBrush x:Key="CellHighlight" Color="#513D46"/>
+    <SolidColorBrush x:Key="CellShadow" Color="#110D10"/>
+    <SolidColorBrush x:Key="CellRevealed" Color="#2A2125"/>
+    <SolidColorBrush x:Key="CellBorder" Color="#463840"/>
+    <SolidColorBrush x:Key="StatusBarBg" Color="#281F23"/>
+    <SolidColorBrush x:Key="TextPrimary" Color="#E4D6DB"/>
+    <SolidColorBrush x:Key="FlagColor" Color="#8FC4E8"/>
+    <SolidColorBrush x:Key="AccentColor" Color="#E890AC"/>
+    <SolidColorBrush x:Key="FlashColor" Color="#E8C06A"/>
+
+    <SolidColorBrush x:Key="Num1" Color="#6FA8E0"/>
+    <SolidColorBrush x:Key="Num2" Color="#6FD08F"/>
+    <SolidColorBrush x:Key="Num3" Color="#F08A8A"/>
+    <SolidColorBrush x:Key="Num4" Color="#9E8FE0"/>
+    <SolidColorBrush x:Key="Num5" Color="#E0928A"/>
+    <SolidColorBrush x:Key="Num6" Color="#5FC8C8"/>
+    <SolidColorBrush x:Key="Num7" Color="#CFC8D8"/>
+    <SolidColorBrush x:Key="Num8" Color="#948DA0"/>
+
+    <!-- 失败时的提示色：插错的旗 / 踩中的那颗雷 -->
+    <SolidColorBrush x:Key="WrongFlagColor" Color="#E07070"/>
+    <SolidColorBrush x:Key="ExplodedCell" Color="#D4573A"/>
+
+</ResourceDictionary>
